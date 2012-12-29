@@ -18,6 +18,9 @@ args = process.argv.slice 2
 outDir = args[args.length - 1]
 watchDir = args[args.length - 2]
 
+if outDir.substr(-1) isnt '/' then outDir += '/'
+if watchDir.substr(-1) isnt '/' then watchDir += '/'
+
 parseOptions = ->
     for opt in allowedOptions
         found = args.indexOf(opt[0]) isnt -1
@@ -32,8 +35,8 @@ clearAll = ->
 compile = (filename) ->
     pureFilename = filename.substr 0, filename.length - INPUT_EXT.length
     outFilename = "#{pureFilename}#{OUTPUT_EXT}"
-    command = "lessc #{watchDir}/#{filename} #{outDir}/#{outFilename} #{args.join(' ')}"
-    console.log colors.green.bold("Compiling #{watchDir}/#{filename}") + colors.white " - Command: '#{command}'"
+    command = "lessc #{watchDir}#{filename} #{outDir}#{outFilename} #{args.join(' ')}"
+    console.log colors.green.bold("Compiling #{watchDir}#{filename}") + colors.white " - Command: '#{command}'"
     exec command, (error, stdout, stderr) ->
         if error?
             console.log "exec error: #{error}"
@@ -50,8 +53,8 @@ compileAll = ->
         filename = segments[segments.length - 1]
         if filename.substr(0, 1) isnt '_' and filename.substr(-INPUT_EXT.length) is INPUT_EXT
             cutLen = watchDir.length
-            if file.substr(-1) is '/' then cutLen += 1
-            compile file.substr cutLen
+            # if file.substr(-1) is '/' then cutLen += 1
+            compile file.substr watchDir.length
 
 startWatching = -> watch.watchTree watchDir, compileAll
 

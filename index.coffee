@@ -49,7 +49,9 @@ compileAll = ->
         segments = file.split '/'
         filename = segments[segments.length - 1]
         if filename.substr(0, 1) isnt '_' and filename.substr(-INPUT_EXT.length) is INPUT_EXT
-            compile file.substr watchDir.length + 1
+            cutLen = watchDir.length
+            if file.substr(-1) is '/' then cutLen += 1
+            compile file.substr cutLen
 
 startWatching = -> watch.watchTree watchDir, compileAll
 

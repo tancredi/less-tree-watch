@@ -1,6 +1,6 @@
 {
     "name": "less-tree-watch",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Coffeescript command-line utility for watching and compiling of LESS files",
     "author": [
         {

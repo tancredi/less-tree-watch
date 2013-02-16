@@ -26,6 +26,6 @@ Require and intanciate the watcher with the desired arguments:
 ```
 var LessTreeWatcher = require('less-tree-watch').LessTreeWatcher;
 watcher = new LessTreeWatcher('less', 'css', [ '-x', '--yui-compress' ]);
-``
+```
 
 Now you can run ``watcher.watchTree()`` to watch your LESS tree or ``watcher.compileTree()`` to just compile once.
